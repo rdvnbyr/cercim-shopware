@@ -1,0 +1,30 @@
+{% sw_extends '@Storefront/storefront/page/checkout/cart/index.html.twig' %}
+
+{% block page_checkout_cart_action_proceed %}
+    {% if page.hasExtension(constant('\\KlarnaPayment\\Components\\Extension\\TemplateData\\ExpressDataExtension::EXTENSION_NAME')) %}
+        {% set klarnaExpressData = page.getExtension(constant('\\KlarnaPayment\\Components\\Extension\\TemplateData\\ExpressDataExtension::EXTENSION_NAME')) %}
+        {# @var klarnaExpressData \KlarnaPayment\Components\Extension\TemplateData\ExpressDataExtension #}
+
+        {% block page_checkout_cart_klarna_express_button %}
+            {% if context.customer is null %}
+                <div class="klarna-express checkout-cart">
+                    <klarna-express-button
+                        class="{{ klarnaExpressData.cssClassName }}"
+                        data-is-klarna-express-button
+                        data-klarna-express-button-options='{
+                            "merchantId": "{{ klarnaExpressData.merchantId }}",
+                            "environment": "{{ klarnaExpressData.environment }}",
+                            "callbackUrl": "{{ seoUrl('frontend.klarna.express.callback.userAuthenticated') }}"
+                        }'
+                        data-locale="{{ klarnaExpressData.locale }}"
+                        data-theme="{{ klarnaExpressData.theme }}"
+                        data-label="{{ klarnaExpressData.label }}"
+                        data-shape="{{ klarnaExpressData.shape }}"
+                    ></klarna-express-button>
+                </div>
+            {% endif %}
+        {% endblock %}
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}

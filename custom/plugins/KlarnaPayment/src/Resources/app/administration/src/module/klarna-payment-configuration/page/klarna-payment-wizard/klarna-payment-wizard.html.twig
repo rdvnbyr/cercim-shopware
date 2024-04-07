@@ -1,0 +1,118 @@
+{% block klarna_payment_wizard %}
+    <sw-page class="klarna-payment--wizard" v-bind:class="{ 'is--mobile': isMobile }">
+        {% block klarna_payment_wizard_header %}
+            <template slot="smart-bar-header">
+                <h2>
+                    {{ $tc('klarna-payment-configuration.wizard.title') }}
+                </h2>
+            </template>
+        {% endblock %}
+
+        {% block klarna_payment_wizard_content %}
+            <template slot="content">
+                <sw-card-view>
+                    <sw-card :isLoading="isLoading">
+                        <sw-container columns="1fr 3fr" class="klarna-payment-detail--transaction-details" gap="0px 32px">
+                            <sw-container>
+                                <sw-step-display
+                                  class="wizard-navigation"
+                                  :itemIndex="step"
+                                  :itemVariant="stepVariant">
+
+                                    <sw-step-item>
+                                        {{ $tc('klarna-payment-configuration.wizard.steps.welcome') }}
+                                    </sw-step-item>
+
+                                    <sw-step-item>
+                                        {{ $tc('klarna-payment-configuration.wizard.steps.salesChannel') }}
+                                    </sw-step-item>
+
+                                    <sw-step-item>
+                                        {{ $tc('klarna-payment-configuration.wizard.steps.documentation') }}
+                                    </sw-step-item>
+                                </sw-step-display>
+                            </sw-container>
+
+                            <sw-container>
+                                <sw-container v-if="step == 0" gap="20px 0px">
+                                    <sw-container>
+                                        <div class="logo">
+                                            <img src="https://cdn.klarna.com/1.0/shared/image/generic/logo/de_de/basic/logo_black.png" alt="logo">
+                                        </div>
+                                    </sw-container>
+
+                                    <sw-container>
+                                        <span v-html=" $tc('klarna-payment-configuration.wizard.content.welcome.customer')"></span>
+                                    </sw-container>
+
+                                    <sw-container>
+                                        <span v-html="$tc('klarna-payment-configuration.wizard.content.welcome.registration')"></span>
+                                    </sw-container>
+
+                                    <sw-container>
+                                        <span v-html="$tc('klarna-payment-configuration.wizard.content.welcome.installation')"></span>
+                                    </sw-container>
+                                </sw-container>
+
+                                <sw-container v-if="step == 1" gap="20px 0px">
+                                    <sw-sales-channel-switch
+                                      :label="$tc('sw-settings.system-config.labelSalesChannelSelect')"
+                                      @change-sales-channel-id="onSalesChannelChanged">
+                                    </sw-sales-channel-switch>
+
+                                    <template v-for="(item, index) in salesChannels">
+                                        <sw-container columns="1fr 1fr" :class="item.id" v-if="item.id == currentSalesChannelId">
+                                            <sw-container>
+                                                {{ $tc('klarna-payment-configuration.wizard.klarnaProduct') }}
+                                            </sw-container>
+
+                                            <sw-container>
+                                                <sw-field type="select" size="small" v-model="item.klarnaType">
+                                                    <option key="deactivated" value="deactivated" :selected="item.klarnaType === 'deactivated'">
+                                                        {{ $tc('klarna-payment-configuration.wizard.type.deactivated') }}
+                                                    </option>
+
+                                                    <option key="payments" value="payments" :selected="item.klarnaType === 'payments'">
+                                                        {{ $tc('klarna-payment-configuration.wizard.type.payments') }}
+                                                    </option>
+                                                </sw-field>
+                                            </sw-container>
+                                        </sw-container>
+                                    </template>
+                                </sw-container>
+
+                                <sw-container v-if="step == 2" gap="20px 0px">
+                                    <sw-container>
+                                        <span v-html="$tc('klarna-payment-configuration.wizard.content.documentation.headline')"></span>
+                                    </sw-container>
+
+                                    <sw-container>
+                                        <span v-html="$tc('klarna-payment-configuration.wizard.content.documentation.introduction')"></span>
+                                    </sw-container>
+
+                                    <sw-container>
+                                        <span v-html="$tc('klarna-payment-configuration.wizard.content.documentation.conclusion')"></span>
+                                    </sw-container>
+                                </sw-container>
+                            </sw-container>
+                        </sw-container>
+
+                        <sw-container columns="1fr 1fr" gap="32px 32px" class="wizard-footer">
+                            <sw-button :disabled="step == minStep" size="small" @click="onBack">
+                                <b>{{ $tc('klarna-payment-configuration.wizard.action.back') }}</b>
+                            </sw-button>
+
+                            <sw-button v-if="step != maxStep" size="small" variant="primary" @click="onNext">
+                                {{ $tc('klarna-payment-configuration.wizard.action.next') }}
+                            </sw-button>
+
+                            <sw-button v-if="step == maxStep" size="small" variant="primary" @click="onFinish">
+                                {{ $tc('klarna-payment-configuration.wizard.action.finish') }}
+                            </sw-button>
+                        </sw-container>
+                    </sw-card>
+                </sw-card-view>
+            </template>
+        {% endblock %}
+    </sw-page>
+{% endblock %}

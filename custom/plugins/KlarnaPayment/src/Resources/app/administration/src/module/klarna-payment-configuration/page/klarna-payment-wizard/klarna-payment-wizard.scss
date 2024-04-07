@@ -1,0 +1,24 @@
+.klarna-payment--wizard {
+    .wizard-navigation {
+        padding-right: 32px;
+        border-right: 1px solid #D1D9E0;
+    }
+
+    .is--mobile {
+        display: none;
+    }
+
+    .wizard-footer {
+        margin-top: 32px;
+    }
+
+    .logo {
+        width: 50%;
+        margin: 0 auto;
+        margin-bottom: 32px;
+
+        img {
+            width: 100%;
+        }
+    }
+}

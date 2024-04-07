@@ -1,0 +1,11 @@
+{% block sw_settings_content_card_slot_plugins %}
+    {% parent %}
+
+    <sw-settings-item :label="$tc('klarna-payment-configuration.module.title')"
+      :to="{ name: 'klarna.payment.configuration.settings' }"
+      :backgroundEnabled="false">
+        <template #icon>
+            <img :src="'klarnapayment/administration/plugin.png' | asset">
+        </template>
+    </sw-settings-item>
+{% endblock %}

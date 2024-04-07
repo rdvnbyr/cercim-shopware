@@ -1,0 +1,94 @@
+{
+  "klarna-payment-configuration": {
+    "module": {
+      "title": "Klarna.",
+      "description": "Klarna."
+    },
+    "settingsForm": {
+      "title": "Klarna",
+      "inheritanceWarning": "Die Darstellung der Vererbung für die Plugin-Konfiguration wurde mit Shopware 6.3.4.0 optimiert. Bitte aktualisieren Sie Ihr System, wenn Sie die Vererbung sicher verwenden möchten.",
+      "apiConfiguration": {
+        "notice": "Bitte beachten Sie, dass der Test- und Debug-Modus nicht individuell pro Region konfiguriert werden kann, da der entsprechende Endpunkt anhand der Rechnungsadresse gewählt wird."
+      },
+      "globalPurchaseMissingInfo": "Sofort bezahlen, Pay Later und Ratenkauf werden zu einer einzigen Zahlungsmethode zusammengefasst: Bezahlen mit Klarna. Jeder Klarna-Kunde wird in Kürze automatisch auf diese neue Zahlungsmethode migriert. Der Status Ihrer Migration wird jedes Mal überprüft, wenn ein Kunde die Seite zur Bestellbestätigung aufruft. Diese Meldung verschwindet automatisch, sobald Sie migriert sind",
+      "deprecatedConfiguration": "Sofort bezahlen, Pay Later und Ratenkauf sind jetzt in einer Zahlungsmethode kombiniert: Bezahlen mit Klarna. Diese Konfiguration wird nicht mehr benötigt und wird in einer zukünftigen Version entfernt.",
+      "messages": {
+        "titleSuccess": "Erfolg",
+        "titleError": "Fehler",
+        "messageTestEUSuccess": "Die API-Zugangsdaten für Europa wurden erfolgreich validiert.",
+        "messageTestUSSuccess": "Die API-Zugangsdaten für Nordamerika wurden erfolgreich validiert.",
+        "messageTestEUErrorLive": "Die API-Zugangsdaten für Europa konnten nicht validiert werden.",
+        "messageTestEUErrorTest": "Die API-Zugangsdaten für Europa des Testmodus konnten nicht validiert werden.",
+        "messageTestUSErrorLive": "Die API-Zugangsdaten für Nordamerika konnten nicht validiert werden.",
+        "messageTestUSErrorTest": "Die API-Zugangsdaten für Nordamerika des Testmodus konnten nicht validiert werden.",
+        "messageSaveSuccess": "Die Plugin-Einstellungen wurden gespeichert.",
+        "messageSaveError": "Die Plugin-Einstellungen konnten nicht gespeichert werden.",
+        "messageMissingApiUsername": "Für den aktiven Modus wurde kein Wert für die Option \"Api-Benutzername\" angegeben!",
+        "messageMissingApiPassword": "Für den aktiven Modus wurde kein Wert für die Option \"Api-Password\" angegeben!"
+      },
+      "buttons": {
+        "save": "Einstellungen speichern",
+        "test": "API-Zugangsdaten testen",
+        "wizard": "Wizard starten"
+      },
+      "onsiteMessaging": {
+        "generate": "Generiere deine Daten hier",
+        "playgroundUrl": "https://playground.eu.portal.klarna.com/on-site-messaging/#realm=merchants",
+        "defaultUrl": "https://eu.portal.klarna.com/on-site-messaging/#realm=merchants"
+      },
+      "klarnaPayments": {
+        "payLater": {
+          "description": "Die Option \"Rechnung\" macht Kunden den Bezahlvorgang einfach und schnell, ohne dabei persönliche Daten oder komplizierte Nummern eingeben zu müssen. Der Kunde hat die Wahl zwischen Rechnung und im Monat X bezahlen.",
+          "title": "Pay Later"
+        },
+        "sliceIt": {
+          "description": "Mittels \"Ratenkauf\" können Kunden die Einkaufssumme bei geringen Zinsen in Häppchen aufteilen. Das erhöht den Investitionsrahmen und die Kaufkraft. Klarna's einzigartige Kreditbearbeitung erfordert nur wenige Augenblicke und minimale Dateneingabe. Der Kunde hat die Wahl zwischen fixen und flexiblen Raten.",
+          "title": "Ratenkauf"
+        },
+        "payNow": {
+          "additional": "Für \"Sofort bezahlen\" müssen sowohl die kombinierte Zahlungsmethode \"Sofort bezahlen\" als auch die einzelnen Zahlungsmethoden \"Kreditkarte\", \"Lastschrift\" und \"Sofortüberweisung\" zu den Verkaufskanälen hinzugefügt werden.",
+          "description": "Kunden, die Beträge sofort vollständig beim Bestellabschluss bezahlen möchten, können die Option \"Sofort bezahlen\" nutzen. Zur Auswahl stehen hierbei Kreditkarte, Lastschrift und die Sofortüberweisung.",
+          "title": "Sofort bezahlen"
+        }
+      }
+    },
+    "wizard": {
+      "title": "Wizard",
+      "klarnaProduct": "Genutztes Klarna Produkt",
+      "steps": {
+        "welcome": "Willkommen",
+        "salesChannel": "Verkaufskanal",
+        "documentation": "Dokumentation"
+      },
+      "content": {
+        "welcome": {
+          "customer": "Sind Sie bereits Klarna Händler? Klicken Sie bitte auf Weiter.",
+          "registration": "Sofern Sie noch keine Registrierung bei Klarna vorgenommen haben, wenden Sie sich bitte per email an&nbsp;<a href='mailto:vertrieb@klarna.com'>vertrieb@klarna.com</a>.",
+          "installation": "Für die Einrichtung und Verwendung des Plugins finden Sie die Installationsanleitung&nbsp;<a href='https://bit.ly/klarna-shopware-6-installationguide-de'>HIER</a>."
+        },
+        "documentation": {
+          "headline": "Vielen Dank. Die Konfiguration von Klarna ist abgeschlossen.",
+          "introduction": "Egal was Sie verkaufen, unsere Produkte sind dafür gemacht, Ihren Kunden das Beste und Ihnen das zufriedenste Kundenerlebnis zu bereiten. Wir unterstützen Sie online dabei, eine große Auswahl an Zahlungsmöglichkeiten anzubieten.",
+          "conclusion": "Um mehr über Klarna zu erfahren, klicken Sie bitte&nbsp;<a href='https://bit.ly/klarna-shopware-6-installationguide-de'>HIER</a>."
+        }
+      },
+      "type": {
+        "deactivated": "Deaktiviert",
+        "payments": "Klarna Payments",
+        "checkout": "Klarna Checkout"
+      },
+      "action": {
+        "back": "Zurück",
+        "next": "Weiter",
+        "finish": "Fertig"
+      },
+      "messages": {
+        "titleSuccess": "Erfolg",
+        "titleError": "Fehler",
+        "messageLoadError": "Der Wizard konnte nicht geladen werden.",
+        "messageSaveSuccess": "Die Einrichtung wurde erfolgreich abgeschlossen.",
+        "messageSaveError": "Die Einrichtung konnte nicht erfolgreich abgeschlossen werden."
+      }
+    }
+  }
+}

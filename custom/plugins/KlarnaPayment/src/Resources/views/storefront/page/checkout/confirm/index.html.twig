@@ -1,0 +1,76 @@
+{% sw_extends '@Storefront/storefront/page/checkout/confirm/index.html.twig' %}
+
+{% block page_checkout_confirm_errors %}
+    {# @var \KlarnaPayment\Components\Extension\ErrorMessageExtension errorMessage #}
+    {% set errorMessage = page.extensions[constant('KlarnaPayment\\Components\\Extension\\ErrorMessageExtension::EXTENSION_NAME')] %}
+
+    {% if errorMessage %}
+        {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+          type: "danger",
+          content: errorMessage.message | trans
+        } %}
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block page_checkout_confirm_product_table %}
+    {# This is a check for the shopware version, see https://github.com/shopware/storefront/compare/v6.3.5.4..v6.4.0.0 file Resources/views/storefront/page/checkout/confirm/confirm-payment.html.twig #}
+    {# The block does does exist up until Shopware 6.4.0.0 and got removed with that specific version #}
+    {% if block('page_checkout_confirm_payment_current', '@Storefront/storefront/page/checkout/confirm/confirm-payment.html.twig') is not defined %}
+        <div class="row">
+            <div class="col-sm-12">
+                {# @var \KlarnaPayment\Components\Extension\TemplateData\CheckoutDataExtension klarnaCheckoutData #}
+                {% set klarnaCheckoutData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\TemplateData\\CheckoutDataExtension::EXTENSION_NAME')] %}
+
+                {% if klarnaCheckoutData.klarnaType == constant('KlarnaPayment\\Components\\Extension\\TemplateData\\CheckoutDataExtension::TYPE_CHECKOUT') %}
+                    {% sw_include '@Storefront/storefront/klarna/checkout.html.twig' %}
+                {% endif %}
+
+                {% if klarnaCheckoutData.klarnaType == constant('KlarnaPayment\\Components\\Extension\\TemplateData\\CheckoutDataExtension::TYPE_PAYMENTS') %}
+                    {% sw_include '@Storefront/storefront/klarna/payments.html.twig' %}
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block page_checkout_confirm %}
+    {# This is a check for the shopware version, see https://github.com/shopware/storefront/compare/v6.3.5.4..v6.4.0.0 file Resources/views/storefront/page/checkout/confirm/confirm-payment.html.twig #}
+    {# The block does does exist up until Shopware 6.4.0.0 and got removed with that specific version #}
+    {% if block('page_checkout_confirm_payment_current', '@Storefront/storefront/page/checkout/confirm/confirm-payment.html.twig') is defined %}
+        {{ parent() }}
+
+        {# @var \KlarnaPayment\Components\Extension\TemplateData\CheckoutDataExtension klarnaCheckoutData #}
+        {% set klarnaCheckoutData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\TemplateData\\CheckoutDataExtension::EXTENSION_NAME')] %}
+
+        {% if klarnaCheckoutData.klarnaType == constant('KlarnaPayment\\Components\\Extension\\TemplateData\\CheckoutDataExtension::TYPE_CHECKOUT') %}
+            {% sw_include '@Storefront/storefront/klarna/checkout.html.twig' %}
+        {% endif %}
+
+        {% if klarnaCheckoutData.klarnaType == constant('KlarnaPayment\\Components\\Extension\\TemplateData\\CheckoutDataExtension::TYPE_PAYMENTS') %}
+            {% sw_include '@Storefront/storefront/klarna/payments.html.twig' %}
+        {% endif %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+
+{% block page_checkout_confirm_form_submit %}
+    {# @var \KlarnaPayment\Components\Extension\TemplateData\CheckoutDataExtension klarnaCheckoutData #}
+    {% set klarnaCheckoutData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\TemplateData\\CheckoutDataExtension::EXTENSION_NAME')] %}
+
+    {# @var \KlarnaPayment\Components\Extension\SessionDataExtension sessionData #}
+    {% set sessionData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\SessionDataExtension::EXTENSION_NAME')] %}
+
+    {% if klarnaCheckoutData.klarnaType == constant('KlarnaPayment\\Components\\Extension\\TemplateData\\CheckoutDataExtension::TYPE_PAYMENTS') and sessionData and sessionData.selectedPaymentMethodCategory is not empty %}
+        <div id="klarnaConfirmFormSubmit" hidden="hidden">
+            {{ parent() }}
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

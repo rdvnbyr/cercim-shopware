@@ -1,0 +1,48 @@
+{
+    "KlarnaPayment": {
+        "errorMessages": {
+            "genericError": "Es ist ein Fehler aufgetreten.",
+            "paymentDeclined": "Klarna hat die Zahlung abgelehnt, bitte wählen Sie eine andere Zahlungsart.",
+            "addressChangeDeclined": "Klarna hat die Änderung der Adresse nicht genehmigt.",
+            "lineItemChangeDeclined": "Klarna hat die Änderung des Warenkorbs nicht genehmigt.",
+            "expressLoginError": "Eine Anmeldung über Klarna Express ist aktuell nicht möglich."
+        },
+        "klarnaPayments": {
+            "cardTitle": "Klarna."
+        },
+        "wizard": {
+            "allSalesChannel": "Alle Verkaufskanäle"
+        },
+        "cookie": {
+            "klarna": "Klarna",
+            "metrix": "Online Metrix"
+        },
+        "entityType": {
+            "label": "Rechtsform",
+            "placeholder": "Bitte wählen...",
+            "LIMITED_COMPANY": "Gesellschaft mit beschränkter Haftung (GmbH)",
+            "CIVIL_LAW_PARTNERSHIP": "Gesellschaft bürgerlichen Rechts (GbR)",
+            "ENTREPRENEURIAL_COMPANY": "UG (haftungsbeschränkt)",
+            "GENERAL_PARTNERSHIP": "Offene Handelsgesellschaft (OHG)",
+            "LIMITED_PARTNERSHIP": "Kommanditgesellschaft (KG)",
+            "LIMITED_PARTNERSHIP_LIMITED_COMPANY": "Gesellschaft mit beschränkter Haftung und Kommanditgesellschaft (GmbH & KG)",
+            "PUBLIC_INSTITUTION": "Öffentliche Einrichtung",
+            "PUBLIC_LIMITED_COMPANY": "Aktiengesellschaft (AG)",
+            "REGISTERED_SOLE_TRADER": "Eingetragener Kaufmann/Kauffrau",
+            "SOLE_TRADER": "Einzelunternehmen/Freiberuf",
+            "OTHER": "Sonstige"
+        },
+        "registrationId": {
+            "label": "Handelsregisternummer",
+            "placeholder": "Handelsregisternummer eingeben..."
+        }
+    },
+    "error": {
+        "VIOLATION::KLARNA_INVALID_CART_HASH": "Die Zahlung wurde abgelehnt, bitte versuchen Sie es erneut."
+    },
+    "checkout": {
+        "error": {
+            "state": "Bitte Region/Bundesland/Bundesstaat in der Rechnungsadresse hinterlegen."
+        }
+    }
+}

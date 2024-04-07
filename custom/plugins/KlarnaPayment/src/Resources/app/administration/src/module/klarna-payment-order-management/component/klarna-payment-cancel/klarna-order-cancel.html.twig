@@ -1,0 +1,31 @@
+{% block klarna_payment_order_cancel %}
+    <div class="klarna-cancellation">
+        <sw-container v-tooltip="{message: $tc('klarna-payment-order-management.tooltips.cancellationImpossible'), disabled: !isDisabled}" :key="isDisabled">
+            <sw-button :disabled="isDisabled" @click="showModal">
+                {{ $tc('klarna-payment-order-management.cancellation.modalButton') }}
+            </sw-button>
+        </sw-container>
+
+        <sw-modal class="klarna-cancellation--modal" v-if="isModalShown" @modal-close="closeModal" :title="$tc(`klarna-payment-order-management.cancellation.modal.title`)">
+            <div class="klarna-cancellation-modal--text">
+                {{ $tc(`klarna-payment-order-management.cancellation.modal.content`) }}
+            </div>
+
+            <template slot="modal-footer">
+                <sw-button :disabled="isLoading" @click="closeModal">
+                    {{ $tc('klarna-payment-order-management.cancellation.modal.close') }}
+                </sw-button>
+
+                <sw-button-process
+                  class="klarna-cancellation-modal--action"
+                  :isLoading="isLoading"
+                  :processSuccess="isSuccessful"
+                  :disabled="isDisabled"
+                  variant="primary"
+                  @click="cancelPayment">
+                    {{ $tc('klarna-payment-order-management.cancellation.modal.submit') }}
+                </sw-button-process>
+            </template>
+        </sw-modal>
+    </div>
+{% endblock %}

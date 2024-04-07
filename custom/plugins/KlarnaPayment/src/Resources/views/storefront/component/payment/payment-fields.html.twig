@@ -1,0 +1,27 @@
+{% sw_extends '@Storefront/storefront/component/payment/payment-fields.html.twig' %}
+
+{# @var \Shopware\Core\Checkout\Payment\PaymentMethodEntity payment #}
+
+{% block component_payment_method_label %}
+    {% if payment.id in constant('KlarnaPayment\\Installer\\Modules\\PaymentMethodInstaller::KLARNA_PAYMENTS_CODES')|keys %}
+        {# @var \KlarnaPayment\Components\Extension\SessionDataExtension sessionData #}
+        {% set sessionData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\SessionDataExtension::EXTENSION_NAME')] %}
+        {% set paymentMethodIdentifier = sessionData.getPaymentMethodIdentifier(payment.id) %}
+        {% set paymentMethodCategory = sessionData.getPaymentMethodCategory(paymentMethodIdentifier) %}
+
+        <img class="float-right clearfix payment-method-image img-fluid" src="{{ paymentMethodCategory.asset_urls.standard }}" title="{{ payment.translated.name }}" alt="{{ payment.translated.name }}"/>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block component_payment_method %}
+    {% if payment.id in constant('KlarnaPayment\\Installer\\Modules\\PaymentMethodInstaller::KLARNA_PAYMENTS_CODES')|keys and payment.id is not constant('KlarnaPayment\\Installer\\Modules\\PaymentMethodInstaller::KLARNA_CREDIT_CARD') and payment.id is not constant('KlarnaPayment\\Installer\\Modules\\PaymentMethodInstaller::KLARNA_PAY_NOW') %}
+        <div class="klarna-payment-method" id="{{ payment.id }}" data-klarna-code="{{ constant('KlarnaPayment\\Installer\\Modules\\PaymentMethodInstaller::KLARNA_PAYMENTS_CODES')[payment.id] }}">
+            {{ parent() }}
+            <div class="klarnaPaymentsContainerModal" id="klarnaPaymentsContainerModal{{ payment.id }}" {% if payment.id is not same as(defaultPaymentMethodId) %}hidden="hidden"{% endif %}></div>
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

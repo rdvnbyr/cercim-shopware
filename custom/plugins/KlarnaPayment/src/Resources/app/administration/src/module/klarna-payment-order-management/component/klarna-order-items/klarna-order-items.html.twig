@@ -1,0 +1,46 @@
+{# @var \KlarnaPayment\Components\Client\Response\GetOrderResponse klarnaOrder #}
+
+{% block klarna_payment_payment_details %}
+    <div class="klarna-order-items">
+        <sw-data-grid
+          :dataSource="orderItems"
+          :columns="orderItemColumns"
+          :showActions="false"
+          :showSelection="true"
+          v-on:select-item="onSelectItem">
+
+            <template slot="column-reference" slot-scope="{ item, isInlineEdit}">
+                <div v-tooltip="{ message: item.reference, disabled: item.reference.length <= 15 }">
+                    {{ item.reference|truncate(15, true, '...') }}
+                </div>
+            </template>
+
+            <template slot="column-product" slot-scope="{ item, isInlineEdit}">
+                <sw-product-variant-info
+                        :variations="item.options">
+                    <div class="sw-order-line-items-grid__item-label">
+                        {{ item.product }}
+                    </div>
+                </sw-product-variant-info>
+            </template>
+
+            <template slot="column-price" slot-scope="{ item, isInlineEdit}">
+                {{ item.price }}
+            </template>
+
+            <template slot="column-amount" slot-scope="{ item, isInlineEdit }">
+                <sw-field
+                  :value="item.amount"
+                  type="number"
+                  :min="0"
+                  :disabled="item.disabled"
+                  :max="item.amount"
+                  slot="inline-edit"
+                  size="small"
+                  placeholder=0
+                  v-on:change="onChangeQuantity($event, item.id)">
+                </sw-field>
+            </template>
+        </sw-data-grid>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% block klarna_payment_payment_details %}
+    <div class="klarna-payment-tab" v-bind:class="{ 'is--mobile': isMobile }">
+        <div v-if="!hasError && initialized">
+            <sw-card class="klarna-payment-details" :title="$tc('klarna-payment-order-management.order-details.title')">
+                <sw-container columns="1fr 1fr" class="klarna-payment-detail--transaction-details mobile--ready" gap="0px 32px">
+                    <sw-container gap="5px">
+                        <sw-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.klarnaReference')" :value="klarnaOrder.reference"></sw-text-field>
+
+                        <sw-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.orderAmount')" :value="klarnaOrder.order_amount | currency(klarnaOrder.currency)"></sw-text-field>
+
+                        <sw-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.capturedAmount')" :value="klarnaOrder.captured_amount | currency(klarnaOrder.currency)"></sw-text-field>
+
+                        <sw-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.refundedAmount')" :value="klarnaOrder.refunded_amount | currency(klarnaOrder.currency)"></sw-text-field>
+
+                        <klarna-release-amount :klarnaOrder="klarnaOrder" v-on:reload="loadData" v-on:subComponentLoading="setSubComponentLoading"></klarna-release-amount>
+                    </sw-container>
+
+                    <sw-container gap="5px">
+                        <sw-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.klarnaOrderId')" :value="klarnaOrder.order_id"></sw-text-field>
+
+                        <sw-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.klarnaStatus')" :value="klarnaOrder.order_status"></sw-text-field>
+
+                        <sw-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.initialPaymentMethod')" :value="klarnaOrder.initial_payment_method"></sw-text-field>
+
+                        <sw-text-field :helpText="$tc('klarna-payment-order-management.order-details.riskCheckHelpText')"  :disabled="true" :label="$tc('klarna-payment-order-management.order-details.riskCheck')" :value="klarnaOrder.fraud_status"></sw-text-field>
+
+                        <klarna-payment-authorization :klarnaOrder="klarnaOrder" v-on:reload="loadData" v-on:subComponentLoading="setSubComponentLoading" ></klarna-payment-authorization>
+                    </sw-container>
+                </sw-container>
+            </sw-card>
+
+            <sw-card class="klarna-payment-actions">
+                <sw-container columns="1fr 1fr 1fr" gap="32px 32px" class="mobile--ready">
+                    <klarna-capture-button :klarnaOrder="klarnaOrder" v-on:reload="loadData"></klarna-capture-button>
+
+                    <klarna-refund-button :klarnaOrder="klarnaOrder" v-on:reload="loadData"></klarna-refund-button>
+
+                    <klarna-order-cancel :klarnaOrder="klarnaOrder" v-on:reload="loadData" v-on:subComponentLoading="setSubComponentLoading"></klarna-order-cancel>
+                </sw-container>
+            </sw-card>
+
+            <klarna-transaction-history :klarnaHistory="klarnaHistory" :klarnaOrder="klarnaOrder" ></klarna-transaction-history>
+        </div>
+
+        <sw-loader v-if="isLoading || isSubComponentLoading"></sw-loader>
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/buy-widget.html.twig' %}
+
+{% block page_product_detail_delivery_informations %}
+    {% block klarna_payments_onsite_messaging_definition %}
+        {# @var \KlarnaPayment\Components\Extension\TemplateData\OnsiteMessagingDataExtension klarnaOnsiteMessagingData #}
+        {% set klarnaOnsiteMessagingData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\TemplateData\\OnsiteMessagingDataExtension::EXTENSION_NAME')] %}
+
+        {% if klarnaOnsiteMessagingData.klarnaOnsiteMessagingSnippet and klarnaOnsiteMessagingData.klarnaOnsiteMessagingScript %}
+            {{ klarnaOnsiteMessagingData.klarnaOnsiteMessagingSnippet|raw }}
+        {% endif %}
+    {% endblock %}
+
+    {{ parent() }}
+{% endblock %}

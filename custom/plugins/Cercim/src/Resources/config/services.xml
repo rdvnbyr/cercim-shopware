@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="Cercim\Command\ExampleCommand">
+            <tag name="console.command"/>
+        </service>
+
+        <service id="Cercim\ScheduledTask\ExampleTask">
+            <tag name="shopware.scheduled.task"/>
+        </service>
+
+        <service id="Cercim\Subscriber\MySubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Cercim\Storefront\Controller\ExampleController" public="true">
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Cercim\Core\Content\Example\SalesChannel\ExampleRoute">
+            <argument type="service" id="product.repository"/>
+        </service>
+
+        <service id="Cercim\Core\Content\Cercim\CercimDefinition">
+            <tag name="shopware.entity.definition" entity="cercim" />
+        </service>
+
+        <service id="Cercim\Service\CustomFieldsInstaller">
+            <argument type="service" id="custom_field_set.repository"/>
+            <argument type="service" id="custom_field_set_relation.repository"/>
+        </service>
+
+    </services>
+</container>
