@@ -20,7 +20,7 @@
 
     <div class="product-price-info">
         {% block component_product_box_price_unit %}
-            <p class="product-price-unit" style="display:none;">
+            <p class="product-price-unit">
                 {# Price is based on the purchase unit #}
                 {% block component_product_box_price_purchase_unit %}
                     {% if referencePrice and referencePrice.unitName %}
@@ -84,6 +84,15 @@
                         {% if isListPrice %}<br>{% endif %}<span class="regulation-price">{{ "general.listPricePreviously"|trans({'%price%': price.regulationPrice.price|currency }) }}{{ "general.star"|trans|sw_sanitize }}</span>
                     </span>
                 {% endif %}
+
+                {# Calculate unit price by kg #}
+{#                 {% if product.weight %}
+                    <span class="product-unit-price-span">
+                        {% set pricePerKg = price.unitPrice / product.weight %}
+                        {{ "general.pricePerKg"|trans|sw_sanitize }}:
+                        {{ pricePerKg|currency }}{{ "general.star"|trans|sw_sanitize }} / kg
+                    </span>
+                {% endif %} #}
             </div>
         {% endblock %}
     </div>

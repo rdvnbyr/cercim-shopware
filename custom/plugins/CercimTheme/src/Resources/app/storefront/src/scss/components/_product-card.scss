@@ -1,0 +1,13 @@
+.product-price-wrapper {
+    .product-cheapest-price {
+        margin-bottom: $spacer-xs !important;
+    }
+    .product-unit-price-span {
+        font-size: $font-size-sm;
+        margin-top: $spacer-xs;
+        color: $price-color;
+        font-weight: $font-weight-semibold;
+        display: block;
+    }
+
+}
