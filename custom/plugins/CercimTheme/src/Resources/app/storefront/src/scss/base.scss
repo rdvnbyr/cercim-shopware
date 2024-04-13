@@ -50,6 +50,10 @@
   src: url('#{$asset-path}font/Poppins/Poppins-SemiBold.ttf') format('truetype');
 }
 
+:root {
+  --bs-body-font-size: 1rem;
+}
+
 body {
   font-family: 'Poppins', sans-serif !important;
 }

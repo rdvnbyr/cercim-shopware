@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * (c) shopware AG <info@shopware.com>
  * For the full copyright and license information, please view the LICENSE
@@ -8,18 +10,28 @@
 namespace Swag\PlatformDemoData\DataProvider;
 
 use Doctrine\DBAL\Connection;
+use Shopware\Core\Content\Category\CategoryCollection;
 use Shopware\Core\Content\Category\CategoryEntity;
 use Shopware\Core\Framework\Api\Context\SystemSource;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\Log\Package;
 
+#[Package('services-settings')]
 class CustomerProvider extends DemoDataProvider
 {
     private Connection $connection;
+
+    /**
+     * @var EntityRepository<CategoryCollection> $categoryRepository
+     */
     private EntityRepository $categoryRepository;
 
+    /**
+     * @param EntityRepository<CategoryCollection> $categoryRepository
+     */
     public function __construct(Connection $connection, EntityRepository $categoryRepository)
     {
         $this->connection = $connection;

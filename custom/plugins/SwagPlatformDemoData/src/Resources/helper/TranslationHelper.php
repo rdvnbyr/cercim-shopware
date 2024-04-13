@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * (c) shopware AG <info@shopware.com>
  * For the full copyright and license information, please view the LICENSE
@@ -8,10 +10,12 @@
 namespace Swag\PlatformDemoData\Resources\helper;
 
 use Doctrine\DBAL\Connection;
+use Shopware\Core\Framework\Log\Package;
 
+#[Package('services-settings')]
 class TranslationHelper
 {
-    //Which language to use if no translation for the wanted language is available
+    // Which language to use if no translation for the wanted language is available
     private const DEFAULT_TRANSLATION_LANGUAGE = 'en-GB';
 
     private DbHelper $dbHelper;
