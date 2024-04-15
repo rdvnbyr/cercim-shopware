@@ -1,0 +1,61 @@
+{
+  "send-cloud": {
+    "basic": {
+      "label": "Sendcloud",
+      "description": ""
+    },
+    "welcome": {
+      "title": "The shipping software for e-commerce",
+      "mainText": "Join over 10.000+ online stores automating their shipping process.",
+      "buttonLabel": "Login or create your free Sendcloud account"
+    },
+    "dashboard": {
+      "tabName": "Dashboard",
+      "mainText": "You're all set to start shipping more efficiently!",
+      "buttonLabel": "Go to Sendcloud",
+      "notification": {
+        "title": "Service point delivery is disabled!",
+        "message": "Enable service points in your Sendcloud settings > Integrations > {channel} to offer Service Point Delivery in your checkout."
+      }
+    },
+    "shipment": {
+      "trackingNumber": "Tracking number",
+      "servicePointDelivery": "Service Point Delivery",
+      "changeServicePoint": "Change a service point",
+      "selectServicePoint": "Select service point",
+      "emptyStatusMessage": "-",
+      "emptyTrackingNumberMessage": "-",
+      "emptyServicePointMessage": "-"
+    },
+    "customsInfo": {
+      "tabName": "Customs information",
+      "defaultValues": {
+        "title": "Default values",
+        "paragraph": "To send international shipment data to Sendcloud, please select a default value that will be used. If you have mapped value for HS code and origin country in the next section, and the value is not found on the product, the defined value below will be used."
+      },
+      "dataMapping": {
+        "title": "Data mapping",
+        "paragraph": "Please map product HS-code and origin country to Shopware custom product attributes. Mapped attribute values will be used when plugin sends order data to Sendcloud."
+      },
+      "shipmentType": "Shipment type",
+      "shipmentTypeHelpText": "Type of shipment.",
+      "hsCode": "HS Code",
+      "hsCodeHelpText": "The HS code is the harmonized system code. If you want to ship your products internationally, you would need to enter these codes. These codes provide customs with information so that correct tariffs can be applied to the order. Used by border officers to classify this product.",
+      "originCountry": "Origin country",
+      "originCountryHelpText": "In most cases, the country where the product is manufactured.",
+      "hsCodePlaceholderText": "Enter default value for HS code field",
+      "originCountrySelectMessage": "Please select country of origin",
+      "hsCodeMappingSelectMessage": "Please select attribute for mapping",
+      "originCountryMappingSelectMessage": "Please select attribute for mapping",
+      "none": "None",
+      "shipmentTypes": {
+        "gift": "Gift",
+        "documents": "Documents",
+        "commercialGoods": "Commercial Goods",
+        "commercialSample": "Commercial Sample",
+        "returnedGoods": "Returned Goods"
+      },
+      "successfulSaveMessage": "Customs information has been saved."
+    }
+  }
+}

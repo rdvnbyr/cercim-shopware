@@ -1,0 +1,19 @@
+{% block sendcloud_notification %}
+    <div class="sendcloud-notification-container">
+        <div class="sendcloud-notification">
+            <div class="sendcloud-notification-content">
+                <div class="sendcloud-notification-icon-container">
+                    <div class="sendcloud-notification-icon">
+                        <sw-icon name="default-badge-info" color="#274FD4" size="40"/>
+                    </div>
+                </div>
+                <div class="sendcloud-notification-text-container">
+                    <div class="sendcloud-notification-text-message">
+                        <h3>{{ sendcloudNotificationTitle }}</h3>
+                        {{ sendcloudNotificationMessage }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

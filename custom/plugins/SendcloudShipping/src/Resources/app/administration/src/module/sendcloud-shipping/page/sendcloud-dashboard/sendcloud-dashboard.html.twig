@@ -1,0 +1,36 @@
+{% block sendcloud_dashboard %}
+    <sendcloud-container>
+        <sw-tabs>
+            <sw-tabs-item name="dashboard" :active="activeTab === 'dashboard'" @click="activeTab = 'dashboard'">
+                {{ $tc('send-cloud.dashboard.tabName') }}
+            </sw-tabs-item>
+            <sw-tabs-item name="customs" :active="activeTab === 'customs'" @click="activeTab = 'customs'">
+                {{ $tc('send-cloud.customsInfo.tabName') }}
+            </sw-tabs-item>
+            <div class="sendcloud-tab-logo">
+                <img :src="'bundles/sendcloudshipping/administration/img/sendcloud_with_name.svg' ">
+            </div>
+        </sw-tabs>
+        <sw-loader class="sc-loader" v-if="isLoading"/>
+        <div v-if="activeTab === 'dashboard'">
+            <sendcloud-notification v-if="!isServicePointEnabled"
+                                    :sendcloud-notification-title="$tc('send-cloud.dashboard.notification.title')"
+                                    :sendcloud-notification-message="$tc('send-cloud.dashboard.notification.message', 1, {channel: salesChannel})"
+            />
+
+            <sendcloud-content-window>
+                <sendcloud-logo
+                        :sendcloud-logo-url="'bundles/sendcloudshipping/administration/img/sendcloud_with_name.svg' "/>
+                <sendcloud-main-text :sendcloud-main-text="$tc('send-cloud.dashboard.mainText')"/>
+                <sendcloud-button :sendcloud-button-label="$tc('send-cloud.dashboard.buttonLabel')"
+                                  :on-click="goToSendCloud"/>
+            </sendcloud-content-window>
+        </div>
+        <sendcloud-customs-info v-if="activeTab === 'customs'"
+                                :sendcloud-shipment-types="shipmentTypes"
+                                :sendcloud-countries="countries"
+                                :sendcloud-custom-fields="customFields"
+                                :sendcloud-shipment-type="shipmentType"
+        ></sendcloud-customs-info>
+    </sendcloud-container>
+{% endblock %}

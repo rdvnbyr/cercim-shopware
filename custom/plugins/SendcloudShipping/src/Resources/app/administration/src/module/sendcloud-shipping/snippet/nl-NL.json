@@ -1,0 +1,61 @@
+{
+  "send-cloud": {
+    "basic": {
+      "label": "Sendcloud",
+      "description": ""
+    },
+    "welcome": {
+      "title": "De verzendsoftware voor e-commerce",
+      "mainText": "Al meer dan 10.000 webshops automatiseren hun verzendproces. Join the revolution!",
+      "buttonLabel": "Login of creëer een gratis Sendcloud account"
+    },
+    "dashboard": {
+      "tabName": "Dashboard",
+      "mainText": "Je bent helemaal klaar. Start direct met verzenden!",
+      "buttonLabel": "Ga naar Sendcloud",
+      "notification": {
+        "title": "Afhaalpuntlevering is uitgeschakeld!",
+        "message": "Activeer afhaalpunten in je Sendcloud instellingen bij > Integraties > {channel} om afhaalpunten in je checkout aan te bieden."
+      }
+    },
+    "shipment": {
+      "trackingNumber": "Tracking nummer",
+      "servicePointDelivery": "Afhaalpuntlevering",
+      "changeServicePoint": "Wijzig afhaalpunt",
+      "selectServicePoint": "Selecteer afhaalpunt",
+      "emptyStatusMessage": "-",
+      "emptyTrackingNumberMessage": "-",
+      "emptyServicePointMessage": "-"
+    },
+    "customsInfo": {
+      "tabName": "Customs information",
+      "defaultValues": {
+        "title": "Standaardwaarden",
+        "paragraph": "Om informatie-verzenddata naar Sendcloud te sturen dien je een standaardwaarde te selecteren. Als je in het volgende gedeelte waardes voor HS-code en land van herkomst toewijst en de waarde kan niet op het product worden gevonden, dan wordt de hieronder gedefinieerde waarde gebruikt."
+      },
+      "dataMapping": {
+        "title": "Gegevenstoewijzing",
+        "paragraph": "Wijs de HS-code en het land van herkomst van het product toe aan custom Shopware productattributen. Toegewezen attribuutwaarden worden gebruikt wanneer de plugin data naar Sendcloud stuurt."
+      },
+      "shipmentType": "Verzenddtype",
+      "shipmentTypeHelpText": "Type verzending.",
+      "hsCode": "HS-code",
+      "hsCodeHelpText": "HS-code staat voor Harmonized System code. Wanneer je je producten internationaal wilt verzenden dien je deze codes in te voeren. De codes voorzien de douane van informatie zodat de correcte tarieven op de bestelling kunnen worden toegepast. Wordt door grensofficieren gebruikt om producten te classificeren.",
+      "originCountry": "Land van herkomst",
+      "originCountryHelpText": "In de meeste gevallen het land waarin het product is gefabriceerd",
+      "hsCodePlaceholderText": "Voer standaardwaarde voor HS-code veld in",
+      "originCountrySelectMessage": "Selecteer het land van herkomst",
+      "hsCodeMappingSelectMessage": "Selecteer attribuut voor toewijzing",
+      "originCountryMappingSelectMessage": "Selecteer attribuut voor toewijzing",
+      "none": "Geen",
+      "shipmentTypes": {
+        "gift": "Cadeau",
+        "documents": "Documenten",
+        "commercialGoods": "Commerciële goederen",
+        "commercialSample": "Commercieel proefmonster",
+        "returnedGoods": "Geretourneerde goederen"
+      },
+      "successfulSaveMessage": "Customs information has been saved."
+    }
+  }
+}

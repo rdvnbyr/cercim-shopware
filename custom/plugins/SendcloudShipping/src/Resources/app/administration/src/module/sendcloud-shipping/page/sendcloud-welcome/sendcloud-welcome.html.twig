@@ -1,0 +1,15 @@
+{% block sendcloud_welcome %}
+    <div>
+        <sendcloud-banner/>
+        <sendcloud-container>
+            <sw-loader class="sc-loader" v-if="isLoading"/>
+            <sendcloud-content-window>
+                <sendcloud-logo :sendcloud-logo-url="'bundles/sendcloudshipping/administration/img/sendcloud.svg'"/>
+                <sendcloud-title :sendcloud-title="$tc('send-cloud.welcome.title')"/>
+                <sendcloud-main-text :sendcloud-main-text="$tc('send-cloud.welcome.mainText')"/>
+                <sendcloud-button :sendcloud-button-label="$tc('send-cloud.welcome.buttonLabel')"
+                                  :on-click="startAuthProcess"/>
+            </sendcloud-content-window>
+        </sendcloud-container>
+    </div>
+{% endblock %}

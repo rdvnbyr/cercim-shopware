@@ -1,0 +1,19 @@
+<div>
+    <div class="service-point-info-headline">
+        {{ $tc('send-cloud.shipment.servicePointDelivery') }}
+    </div>
+    <div v-if="servicePointInfo">
+        <div>{{ servicePointInfo.name }}</div>
+        <div>{{ servicePointInfo.street }}</div>
+        <div>{{ servicePointInfo.postal_code }} {{ servicePointInfo.city }}</div>
+        <div>{{ servicePointInfo.country  }}</div>
+    </div>
+    <div v-else>
+        {{ $tc('send-cloud.shipment.emptyServicePointMessage') }}
+    </div>
+    <div class="service-point-info-button-action">
+        <sw-button variant="ghost" :square="false" size="x-small" @click="openServicePointPicker">
+            {{ linkLabel }}
+        </sw-button>
+    </div>
+</div>

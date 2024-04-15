@@ -1,0 +1,16 @@
+{% block sendcloud_form_field %}
+    <sw-container>
+        <sw-field class="sendcloud-label-align"
+                  v-model="sendcloudFieldModel"
+                  :name="sendcloudFieldName"
+                  :type="sendcloudFieldType"
+                  :label="sendcloudFieldLabel"
+                  :value="sendcloudFieldValue"
+                  :placeholder="sendcloudFieldPlaceholder"
+                  :helpText="sendcloudHelpText">
+            <slot>
+                {% block sendcloud_field_slot %}{% endblock %}
+            </slot>
+        </sw-field>
+    </sw-container>
+{% endblock %}

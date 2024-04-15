@@ -1,0 +1,7 @@
+{
+    "sendcloud": {
+        "servicePointDelivery": "Service Point Zustellung",
+        "selectServicePoint": "Service Point auswählen",
+        "servicePointRequired": "Service Point wird benötigt"
+    }
+}

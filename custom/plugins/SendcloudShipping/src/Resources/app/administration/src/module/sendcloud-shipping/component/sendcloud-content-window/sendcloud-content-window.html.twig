@@ -1,0 +1,9 @@
+{% block sendcloud_content_window %}
+    <div class="sendcloud-content-window-wrapper">
+        <div class="sendcloud-content-window">
+            <slot>
+                {% block sendcloud_content_window_slot %}{% endblock %}
+            </slot>
+        </div>
+    </div>
+{% endblock %}

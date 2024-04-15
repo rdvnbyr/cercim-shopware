@@ -1,0 +1,13 @@
+{% sw_extends '@Storefront/storefront/page/checkout/finish/finish-details.html.twig' %}
+
+{% block page_checkout_finish_order_dispatch_method %}
+    {{ parent() }}
+    {% if page.order.extensions.sendcloud.servicePointInfo %}
+        <p>
+            <strong>{{ "sendcloud.servicePointDelivery"|trans() }}:</strong>
+            {{ page.order.extensions.sendcloud.servicePointInfo.name }} {{ page.order.extensions.sendcloud.servicePointInfo.street }}
+            {{ page.order.extensions.sendcloud.servicePointInfo.house_number }} {{ page.order.extensions.sendcloud.servicePointInfo.postal_code }}
+            {{ page.order.extensions.sendcloud.servicePointInfo.city }} {{ page.order.extensions.sendcloud.servicePointInfo.country }}
+        </p>
+    {% endif %}
+{% endblock %}

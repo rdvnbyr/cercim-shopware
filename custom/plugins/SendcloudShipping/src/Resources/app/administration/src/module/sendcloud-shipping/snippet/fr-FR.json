@@ -1,0 +1,61 @@
+{
+  "send-cloud": {
+    "basic": {
+      "label": "Sendcloud",
+      "description": ""
+    },
+    "welcome": {
+      "title": "La solution d'envoi de colis pour les sites e-commerce",
+      "mainText": "Rejoignez plus de 10.000 e-commerçants ayant fait le choix d'automatiser leur processus d'expédition.",
+      "buttonLabel": "Connectez-vous ou créez votre compte Sendcloud gratuitement"
+    },
+    "dashboard": {
+      "tabName": "Tableau de bord",
+      "mainText": "Tout est prêt pour une expédition plus efficace de vos colis!",
+      "buttonLabel": "Aller sur Sendcloud",
+      "notification": {
+        "title": "La livraison en point relais est désactivée!",
+        "message": "Veuillez activer la livraison en points relais dans le panel Sendcloud sous \"Réglages -> Boutiques connectées -> {channel} \" afin d’utiliser la méthode d’expédition \"Livraison en points relais\"."
+      }
+    },
+    "shipment": {
+      "trackingNumber": "Numéro de suivi du colis reçu",
+      "servicePointDelivery": "Livraison en Point Relais",
+      "changeServicePoint": "Modifier le Point Relais",
+      "selectServicePoint": "Selectionnez un Point Relais",
+      "emptyStatusMessage": "-",
+      "emptyTrackingNumberMessage": "-",
+      "emptyServicePointMessage": "-"
+    },
+    "customsInfo": {
+      "tabName": "Customs information",
+      "defaultValues": {
+        "title": "Valeurs par défaut",
+        "paragraph": "Pour envoyer des information sur le statut des envois à Sendcloud, veuillez sélectionner une valeur par défaut qui sera utilisée. Si vous avez mappé la valeur pour le code SH et le pays d'origine dans la section suivante, et que la valeur ne se trouve pas sur le produit, la valeur définie ci-dessous sera utilisée."
+      },
+      "dataMapping": {
+        "title": "Cartographie des données",
+        "paragraph": "Veuillez faire correspondre le code SH du produit et le pays d'origine aux attributs personnalisés du produit Shopware. Les valeurs des attributs mappés seront utilisées lorsque le plugin enverra les données de commande à Sendcloud."
+      },
+      "shipmentType": "Option de livraison",
+      "shipmentTypeHelpText": "Option de livraison.",
+      "hsCode": "Code SH",
+      "hsCodeHelpText": "Le code SH est le code du système harmonisé. Si vous souhaitez expédier vos produits à l'étranger, vous devez saisir ces codes. Ces codes fournissent aux douanes des informations qui leur permettent d'appliquer des tarifs corrects à la commande. Ils sont utilisés par les agents des frontières pour classer ce produit.",
+      "originCountry": "Pays d'origine",
+      "originCountryHelpText": "Dans la plupart des cas, le pays où le produit est fabriqué.",
+      "hsCodePlaceholderText": "Entrez la valeur par défaut dans le champ code SH",
+      "originCountrySelectMessage": "Veuillez sélectionner le pays d'origine",
+      "hsCodeMappingSelectMessage": "Veuillez sélectionner un attribut pour la cartographie",
+      "originCountryMappingSelectMessage": "Veuillez sélectionner un attribut pour la cartographie",
+      "none": "Aucun",
+      "shipmentTypes": {
+        "gift": "Cadeaux",
+        "documents": "Documents",
+        "commercialGoods": "Marchandises commerciales",
+        "commercialSample": "Échantillon commercial",
+        "returnedGoods": "Retours de marchandise"
+      },
+      "successfulSaveMessage": "Customs information has been saved."
+    }
+  }
+}

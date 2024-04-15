@@ -1,0 +1,11 @@
+{% block sendcloud_index %}
+    <template>
+        {% block sendcloud_content %}
+            <sw-card-view slot="content">
+                <sw-loader class="sc-loader" v-if="isLoading"/>
+                <sendcloud-welcome v-if="this.$route.params.page==='welcome'"/>
+                <sendcloud-dashboard v-else-if="this.$route.params.page==='dashboard'"/>
+            </sw-card-view>
+        {% endblock %}
+    </template>
+{% endblock %}

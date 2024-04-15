@@ -1,0 +1,7 @@
+{
+  "sendcloud": {
+    "servicePointDelivery": "Livraison en Point Relais",
+    "selectServicePoint": "Selectionnez un Point Relais",
+    "servicePointRequired": "Point Relais requis"
+  }
+}

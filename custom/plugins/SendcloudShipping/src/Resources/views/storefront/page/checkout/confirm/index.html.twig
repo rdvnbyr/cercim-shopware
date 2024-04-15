@@ -1,0 +1,186 @@
+{% sw_extends '@Storefront/storefront/page/checkout/confirm/index.html.twig' %}
+
+{% block page_checkout_confirm_form_submit %}
+
+    <script type="text/javascript" src="https://embed.sendcloud.sc/spp/1.0.0/api.min.js"></script>
+    <script>
+        (function () {
+            document.addEventListener("DOMContentLoaded", function () {
+                // form has different names before shopware6.4.0
+                let shippingMethodsForm = document.confirmShippingForm || document.changeShippingForm;
+
+                if (shippingMethodsForm) {
+                    let servicePointDeliveryId = document.querySelector('#servicePointDeliveryId');
+                    let servicePointInfoElement = document.querySelector('#servicePointInfo');
+                    let radioButtons = shippingMethodsForm.shippingMethodId;
+                    let selectServicePointButton = document.querySelector('#selectServicePointButton');
+                    let servicePointEndpointUrl = document.querySelector('#servicePointEndpointUrl');
+                    let apiKey = document.querySelector('#sendcloudApiKey');
+                    let carriers = document.querySelector('#sendcloudCarriers');
+                    let zip = document.querySelector('#sendcloudZip');
+                    let countryCode = document.querySelector('#sendcloudCountry');
+                    let customerNumber = document.querySelector('#sendcloudCustomerNumber');
+                    let submitOrderBtn = document.getElementById('confirmFormSubmit');
+                    let isSubmitBtnDisabled = document.getElementById('sendcloud-is-submit-btn-disabled');
+
+                    if (isSubmitBtnDisabled) {
+                        submitOrderBtn.disabled = true;
+                    }
+
+                    for (let i = 0; i < radioButtons.length; i++) {
+                        radioButtons[i].addEventListener('change', onRadioButtonChange);
+                    }
+
+                    if (selectServicePointButton) {
+                        selectServicePointButton.addEventListener('click', openServicePointPicker);
+                    }
+
+                    onFormLoaded();
+
+                    function onFormLoaded() {
+                        length = radioButtons.length;
+
+                        if (!length && radioButtons) {
+                            radioButtons = [radioButtons];
+                        }
+
+                        for (let i = 0; i < radioButtons.length; i++) {
+                            if (radioButtons[i].checked && servicePointDeliveryId && radioButtons[i].value === servicePointDeliveryId.value) {
+                                if (selectServicePointButton) {
+                                    selectServicePointButton.style.display = 'block';
+                                }
+
+                                onShippingMethodsLoad();
+                            } else {
+                                if (selectServicePointButton) {
+                                    servicePointInfoElement.style.display = 'none';
+                                }
+                            }
+                        }
+                    }
+
+                    function onRadioButtonChange(event) {
+                        if (servicePointDeliveryId && servicePointDeliveryId.value === event.target.value && selectServicePointButton) {
+                            selectServicePointButton.style.display = 'block';
+                            onShippingMethodsLoad();
+                        } else {
+                            enableSaveButton();
+                            if (selectServicePointButton) {
+                                selectServicePointButton.style.display = 'none';
+                                servicePointInfoElement.style.display = 'none';
+                            }
+                        }
+                    }
+
+                    function onShippingMethodsLoad() {
+                        fetch(servicePointEndpointUrl.value + '?customerNumber=' + customerNumber.value)
+                            .then(function (response) {
+                                return response.json()
+                            })
+                            .then(function (servicePointInfoResponse) {
+                                if (servicePointInfoResponse.servicePointInfo.name) {
+                                    enableSaveButton();
+                                    showServicePointInfo(servicePointInfoResponse.servicePointInfo)
+                                } else {
+                                    disableSaveButton();
+                                }
+                            });
+                    }
+
+                    function disableSaveButton() {
+                        modifySaveButton('none');
+                    }
+
+                    function enableSaveButton() {
+                        modifySaveButton('');
+                    }
+
+                    function modifySaveButton(display) {
+                        let saveButton = shippingMethodsForm.querySelector('button[type="submit"]');
+                        if (saveButton) {
+                            saveButton.style.display = display;
+                        }
+                    }
+
+                    function showServicePointInfo(servicePointInfo) {
+                        if (servicePointInfoElement) {
+                            servicePointInfoElement.style.display = 'block';
+                            document.querySelector('#servicePointName').innerText = servicePointInfo.name;
+                            document.querySelector('#servicePointStreet').innerText = servicePointInfo.street;
+                            document.querySelector('#servicePointZipAndCity').innerText = servicePointInfo.postal_code + ' ' + servicePointInfo.city;
+                            document.querySelector('#servicePointCountry').innerText = servicePointInfo.country;
+                        }
+                    }
+
+                    function openServicePointPicker() {
+                        let config = {
+                            'apiKey': apiKey ? apiKey.value : null,
+                            'country': countryCode ? countryCode.value : 'NL',
+                            'postalCode': zip ? zip.value : '',
+                            'language': 'en',
+                            'carriers': carriers ? carriers.value : '',
+                            'weight': '2'
+                        };
+
+                        sendcloud.servicePoints.open(
+                            config,
+                            function (servicePointObject) {
+                                console.log(servicePointObject);
+                                fetch(servicePointEndpointUrl.value + '/save?customerNumber=' + customerNumber.value, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Accept': 'application/json',
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify(servicePointObject)
+                                })
+                                    .then(function (response) {
+                                        return response.json()
+                                    })
+                                    .then(function () {
+                                        enableSaveButton();
+                                        showServicePointInfo(servicePointObject);
+                                        reloadPage();
+                                    });
+                            },
+                            function (errors) {
+                                errors.forEach(function (error) {
+                                    console.log('Failure callback, reason: ' + error);
+                                });
+                            }
+                        );
+                    }
+
+                    /**
+                     * Reload page if shipping methods are not in the popup window (versions 6.4.x)
+                     */
+                    function reloadPage() {
+                        if (!document.confirmShippingForm) {
+                            window.location.reload();
+                        }
+                    }
+                }
+            });
+        })();
+    </script>
+
+    {% if page.extensions.sendcloud.disableSubmitButton %}
+        <input id="sendcloud-is-submit-btn-disabled" type="hidden"
+               value="{{ page.extensions.sendcloud.disableSubmitButton }}">
+        <div role="alert" class="alert alert-danger alert-has-icon">
+            <span class="icon icon-blocked">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="#758CA3" fill-rule="evenodd"
+                          d="M12,24 C5.372583,24 -8.8817842e-16,18.627417 -8.8817842e-16,12 C-8.8817842e-16,5.372583 5.372583,-8.8817842e-16 12,-8.8817842e-16 C18.627417,-8.8817842e-16 24,5.372583 24,12 C24,18.627417 18.627417,24 12,24 Z M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M16.2928932,6.29289322 C16.6834175,5.90236893 17.3165825,5.90236893 17.7071068,6.29289322 C18.0976311,6.68341751 18.0976311,7.31658249 17.7071068,7.70710678 L7.70710678,17.7071068 C7.31658249,18.0976311 6.68341751,18.0976311 6.29289322,17.7071068 C5.90236893,17.3165825 5.90236893,16.6834175 6.29289322,16.2928932 L16.2928932,6.29289322 Z"></path>
+                </svg>
+            </span>
+            <div class="alert-content-container">
+                <div class="alert-content">
+                    {{ "sendcloud.servicePointRequired"|trans() }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}

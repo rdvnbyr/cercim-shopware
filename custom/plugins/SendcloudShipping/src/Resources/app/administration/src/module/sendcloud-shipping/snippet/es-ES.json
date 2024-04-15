@@ -1,0 +1,61 @@
+{
+  "send-cloud": {
+    "basic": {
+      "label": "Sendcloud",
+      "description": ""
+    },
+    "welcome": {
+      "title": "La plataforma de envíos para eCommerce",
+      "mainText": "Únete a las +10.000 tiendas online que automatizan su proceso de envíos",
+      "buttonLabel": "Entra en tu cuenta Sendcloud o crea una gratis ahora"
+    },
+    "dashboard": {
+      "tabName": "Dashboard",
+      "mainText": "¡Todo listo para empezar a enviar más eficientemente!",
+      "buttonLabel": "Ir a Sendcloud",
+      "notification": {
+        "title": "Puntos de servicio de recogida esta desactivado!",
+        "message": "Establece los puntos de servicio en la configuración de Sendcloud > Integraciones > {channel} carrito para ofrecer Puntos de Servicio de Entrega en tu checkout."
+      }
+    },
+    "shipment": {
+      "trackingNumber": "Número de seguimiento",
+      "servicePointDelivery": "Punto de servicio de entrega",
+      "changeServicePoint": "Cambiar punto de servicio",
+      "selectServicePoint": "Selecciona un punto de servicio",
+      "emptyStatusMessage": "-",
+      "emptyTrackingNumberMessage": "-",
+      "emptyServicePointMessage": "-"
+    },
+    "customsInfo": {
+      "tabName": "Customs information",
+      "defaultValues": {
+        "title": "Valores predeterminados",
+        "paragraph": "Para enviar datos de la información del envío a Sendcloud, por favor selecciona un valor predeterminado que se utilizará. Se has asignado un valor para el código SA (HS code) y el país de origen en la siguiente sección, y el valor no se enceuntra en el producto, se utilizará en valor definido a continuación."
+      },
+      "dataMapping": {
+        "title": "Asignación de datos",
+        "paragraph": "Por favor, asigna el código SA  (HS code) del producto y el país de origen a los atributos de los productos personalizados de Shopware. Se utilizarán los valores de los atributos asigandos cuando el plugin mande datos del pedido a Sendcloud. "
+      },
+      "shipmentType": "Tipo de envío",
+      "shipmentTypeHelpText": "Tipo de envío.",
+      "hsCode": "Código SA (HS code)",
+      "hsCodeHelpText": "El código SA (HS code) es el código de sistema armonizado. Si quieres enviar tus productos al extranjero, necesitarías introducir estos códigos. Estos códigos proporcinan información a las aduanas para que puedan aplicar los aranceles correctos al pedido. Es utilizado por los agentes de las fronteras para clasificar este producto.",
+      "originCountry": "País de origen",
+      "originCountryHelpText": "En la mayoría de los casos, el país donde el producto es manufacturado.",
+      "hsCodePlaceholderText": "Introduce el valor predeterminado para el campo del código SA (HS code)",
+      "originCountrySelectMessage": "Por favor, selecciona el país de origen",
+      "hsCodeMappingSelectMessage": "Por favor, selecciona un atributo para la asignación",
+      "originCountryMappingSelectMessage": "Por favor, selecciona un atributo para la asignación",
+      "none": "Ninguno",
+      "shipmentTypes": {
+        "gift": "Regalo",
+        "documents": "Documentos",
+        "commercialGoods": "Bienes comerciales",
+        "commercialSample": "Muestra comercial",
+        "returnedGoods": "Mercancías devueltas"
+      },
+      "successfulSaveMessage": "Customs information has been saved."
+    }
+  }
+}

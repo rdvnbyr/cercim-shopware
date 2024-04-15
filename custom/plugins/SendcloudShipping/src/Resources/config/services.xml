@@ -1,0 +1,366 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!--        REPOSITORIES       -->
+
+        <service id="Sendcloud\Shipping\Entity\StateMachine\StateMachineRepository">
+            <argument type="service" id="state_machine.repository"/>
+            <argument type="service" id="state_machine_state.repository"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\Currency\CurrencyRepository">
+            <argument type="service" id="currency.repository"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\Customer\CustomerRepository">
+            <argument type="service" id="customer.repository"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\ShippingMethod\ShippingMethodRepository">
+            <argument type="service" id="shipping_method.repository"/>
+        </service>
+        <service id="Sendcloud\Shipping\Entity\Order\OrderRepository">
+            <argument type="service" id="order.repository"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\Order\OrderDeliveryRepository">
+            <argument type="service" id="order_delivery.repository"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\Product\ProductRepository">
+            <argument type="service" id="product.repository"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\Queue\QueueEntityDefinition">
+            <tag name="shopware.entity.definition" entity="sendcloud_queues" />
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\Queue\QueueEntityRepository">
+            <argument type="service" id="sendcloud_queues.repository"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\Process\ProcessEntityDefinition">
+            <tag name="shopware.entity.definition" entity="sendcloud_processes" />
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\Process\ProcessEntityRepository">
+            <argument type="service" id="sendcloud_processes.repository"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\Shipment\ShipmentEntityDefinition">
+            <tag name="shopware.entity.definition" entity="sendcloud_shipments" />
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\Shipment\ShipmentEntityRepository">
+            <argument type="service" id="sendcloud_shipments.repository"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\ServicePoint\ServicePointEntityDefinition">
+            <tag name="shopware.entity.definition" entity="sendcloud_servicepoints" />
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\ServicePoint\ServicePointEntityRepository">
+            <argument type="service" id="sendcloud_servicepoints.repository"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\Config\ConfigEntityRepository">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Entity\Config\SystemConfigurationRepository">
+            <argument type="service" id="system_config.repository"/>
+        </service>
+
+        <!--        INFRASTRUCTURE SERVICES       -->
+        <service id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\TaskQueueStorage"
+                 class="Sendcloud\Shipping\Service\Infrastructure\TaskQueueStorageService"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Entity\Queue\QueueEntityRepository"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\HttpClient"
+                 class="Sendcloud\Shipping\Service\Infrastructure\HttpClientService"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\Configuration"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Core\Infrastructure\Utility\TimeProvider"
+                 class="Sendcloud\Shipping\Core\Infrastructure\Utility\TimeProvider"
+                 public="true"
+        />
+
+        <service id="Sendcloud\Shipping\Core\Infrastructure\TaskExecution\Queue"
+                 class="Sendcloud\Shipping\Core\Infrastructure\TaskExecution\Queue"
+                 public="true"
+        />
+
+        <service id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Exposed\TaskRunnerWakeup"
+                 class="Sendcloud\Shipping\Core\Infrastructure\TaskExecution\TaskRunnerWakeup"
+                 public="true"
+        />
+
+        <service id="Sendcloud\Shipping\Core\Infrastructure\TaskExecution\TaskRunner"
+                 class="Sendcloud\Shipping\Core\Infrastructure\TaskExecution\TaskRunner"
+                 public="true"
+        />
+
+        <service id="Sendcloud\Shipping\Core\Infrastructure\Utility\GuidProvider"
+                 class="Sendcloud\Shipping\Core\Infrastructure\Utility\GuidProvider"
+                 public="true"
+        />
+
+        <service id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Exposed\TaskRunnerStatusStorage"
+                 class="Sendcloud\Shipping\Core\Infrastructure\TaskExecution\TaskRunnerStatusStorage"
+                 public="true"
+        />
+
+        <service id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\AsyncProcessStarter"
+                 class="Sendcloud\Shipping\Service\Infrastructure\AsyncProcessStarterService"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\HttpClient"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Process\ProcessEntityRepository"/>
+            <argument type="service" id="Symfony\Component\Routing\Generator\UrlGeneratorInterface"/>
+            <argument type="service" id="parameter_bag"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\ShopLoggerAdapter"
+                 class="Sendcloud\Shipping\Service\Infrastructure\LoggerService"
+                 public="true">
+            <argument type="service" id="kernel"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\Configuration"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\DefaultLoggerAdapter"
+                 class="Sendcloud\Shipping\Core\BusinessLogic\Logger\DefaultLogger"
+                 public="true">
+        </service>
+
+        <service id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\Configuration"
+                 class="Sendcloud\Shipping\Service\Business\ConfigurationService"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Entity\Config\ConfigEntityRepository"/>
+            <argument type="service" id="Symfony\Component\Routing\Generator\UrlGeneratorInterface"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Config\SystemConfigurationRepository"/>
+        </service>
+
+
+        <!--        BUSINESS SERVICES       -->
+
+        <service id="Sendcloud\Shipping\Service\Utility\DeliveryStateMapper"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Entity\StateMachine\StateMachineRepository"/>
+            <argument type="service" id="Shopware\Core\System\StateMachine\StateMachineRegistry"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Core\BusinessLogic\Interfaces\ConnectService"
+                 class="Sendcloud\Shipping\Core\BusinessLogic\Services\ConnectService"
+                 public="true">
+        </service>
+
+        <service id="Sendcloud\Shipping\Core\BusinessLogic\Interfaces\OrderService"
+                 class="Sendcloud\Shipping\Service\Business\OrderService"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Entity\Order\OrderRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Product\ProductRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Currency\CurrencyRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Shipment\ShipmentEntityRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Order\OrderDeliveryRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\DeliveryStateMapper"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\Configuration"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\StateMachine\StateMachineRepository"/>
+
+        </service>
+
+        <service id="Sendcloud\Shipping\Core\BusinessLogic\Webhook\Handler\ParcelStatusHandler"
+                 class="Sendcloud\Shipping\Handlers\ParcelStatusHandler"
+                 public="true">
+        </service>
+
+        <!--        UTILITY       -->
+        <service id="Sendcloud\Shipping\Service\Utility\Initializer"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Utility\TimeProvider"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\TaskExecution\Queue"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Exposed\TaskRunnerWakeup"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\TaskExecution\TaskRunner"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Utility\GuidProvider"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Exposed\TaskRunnerStatusStorage"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\HttpClient"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\AsyncProcessStarter"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\DefaultLoggerAdapter"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\ShopLoggerAdapter"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\Configuration"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\TaskQueueStorage"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\BusinessLogic\Interfaces\ConnectService"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\BusinessLogic\Interfaces\OrderService"/>
+        </service>
+
+        <!--        SNIPPETS       -->
+        <service id="Sendcloud\Shipping\Resources\snippets\de_DE\SnippetFile_de_DE">
+            <tag name="shopware.snippet.file"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Resources\snippets\en_GB\SnippetFile_en_GB">
+            <tag name="shopware.snippet.file"/>
+        </service>
+
+        <!--        CONTROLLERS       -->
+        <service id="Sendcloud\Shipping\Controller\API\Frontend\AsyncProcessController"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\Initializer"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Process\ProcessEntityRepository"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sendcloud\Shipping\Controller\API\Frontend\WebhookController"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\Initializer"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\BusinessLogic\Webhook\WebhookResolver"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sendcloud\Shipping\Controller\API\Frontend\TestController"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\Initializer"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\ServicePoint\ServicePointEntityRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Order\OrderDeliveryRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\DeliveryStateMapper"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sendcloud\Shipping\Controller\API\Backend\RouterController"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\Initializer"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\BusinessLogic\Interfaces\ConnectService"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\TaskExecution\Queue"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\Configuration"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sendcloud\Shipping\Controller\API\Backend\CheckStatusController"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\Initializer"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\BusinessLogic\Interfaces\ConnectService"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+        <service id="Sendcloud\Shipping\Controller\API\Backend\WelcomeController"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\Initializer"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\BusinessLogic\Interfaces\ConnectService"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sendcloud\Shipping\Controller\API\Backend\DashboardController"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\Initializer"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\Configuration"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Exposed\TaskRunnerWakeup"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Config\SystemConfigurationRepository"/>
+            <argument type="service" id="parameter_bag"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sendcloud\Shipping\Controller\API\Backend\SupportController"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\Initializer"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\Configuration"/>
+            <argument type="service" id="Symfony\Component\Routing\Generator\UrlGeneratorInterface"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\ShippingMethod\ShippingMethodRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\TaskQueueStorage"/>
+            <argument type="service" id="parameter_bag"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sendcloud\Shipping\Controller\API\Backend\ShipmentController"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\Initializer"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Shipment\ShipmentEntityRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\Configuration"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Order\OrderRepository"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sendcloud\Shipping\Controller\API\Frontend\ServicePointController"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Entity\ServicePoint\ServicePointEntityRepository"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sendcloud\Shipping\Controller\API\Backend\CustomsInformationController"
+                 public="true">
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\TaskExecution\Queue"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\Configuration"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <!--        HOOKS       -->
+
+        <service id="Sendcloud\Shipping\Subscriber\OrderSubscriber" public="true">
+            <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Order\OrderRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\ServicePoint\ServicePointEntityRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\Initializer"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\BusinessLogic\Interfaces\ConnectService"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\TaskExecution\Queue"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\Configuration"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Shipment\ShipmentEntityRepository"/>
+            <argument type="service" id="request_stack"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Subscriber\CheckoutSubscriber">
+            <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="Sendcloud\Shipping\Service\Utility\Initializer"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\Infrastructure\Interfaces\Required\Configuration"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Shipment\ShipmentEntityRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\ServicePoint\ServicePointEntityRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Entity\Customer\CustomerRepository"/>
+            <argument type="service" id="Sendcloud\Shipping\Core\BusinessLogic\Interfaces\OrderService"/>
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="parameter_bag"/>
+        </service>
+
+        <service id="Sendcloud\Shipping\Core\BusinessLogic\Webhook\WebhookResolver"
+                 class="Sendcloud\Shipping\Core\BusinessLogic\Webhook\WebhookResolver"
+                 public="true">
+        </service>
+    </services>
+</container>

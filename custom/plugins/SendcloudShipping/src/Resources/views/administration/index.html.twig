@@ -1,0 +1,8 @@
+{% sw_extends 'administration/index.html.twig' %}
+
+{% block administration_scripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/sendcloudshipping/administration/js/sendcloud-shipping.js') }}"></script>
+    <script type="text/javascript" src="https://embed.sendcloud.sc/spp/1.0.0/api.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/sendcloudshipping/administration/css/sendcloud-shipping.css') }}">
+{% endblock %}

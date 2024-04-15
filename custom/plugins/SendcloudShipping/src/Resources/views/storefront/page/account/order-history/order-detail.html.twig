@@ -1,0 +1,14 @@
+{% sw_extends '@Storefront/storefront/page/account/order-history/order-detail.html.twig' %}
+
+{% block page_account_order_item_detail_shipping_method %}
+    {{ parent() }}
+    {% if order.extensions.sendcloud.servicePointInfo %}
+        <dt class="col-6 col-md-5">{{ "sendcloud.servicePointDelivery"|trans() }}:</dt>
+        <dd class="col-6 col-md-7">
+            <div>{{ order.extensions.sendcloud.servicePointInfo.name }}</div>
+            <div>{{ order.extensions.sendcloud.servicePointInfo.street }}</div>
+            <div>{{ order.extensions.sendcloud.servicePointInfo.postal_code }} {{ order.extensions.sendcloud.servicePointInfo.city }}</div>
+            <div>{{ order.extensions.sendcloud.servicePointInfo.country }}</div>
+        </dd>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+<sw-card class="sw-order-delivery-metadata" :title="$tc('send-cloud.basic.label')">
+    <sw-container columns="repeat(auto-fit, minmax(250px, 1fr)" gap="0 30px">
+        <sw-description-list>
+            <dt>{{ $tc('sw-order.list.columnState') }}</dt>
+            <dd>{{ orderStatus }}</dd>
+
+            <dt>{{ $tc('send-cloud.shipment.trackingNumber') }}</dt>
+            <dd>
+                <a v-if="showTrackingNumber" :href="trackingUrl" rel="noopener" target="_blank">{{ trackingNumber }}</a>
+                <span v-else>{{ $tc('send-cloud.shipment.emptyTrackingNumberMessage') }}</span>
+            </dd>
+
+
+        </sw-description-list>
+        <service-point-info-details v-if="showSendCloudCard"
+                            :service-point-info="servicePointInfo"
+                            :api-key="apiKey"
+                            :carriers="carriers"
+                            :order="order"
+                            :link-label="linkLabel"
+                            :sendcloud-script-url="sendcloudScriptUrl"
+        />
+    </sw-container>
+</sw-card>

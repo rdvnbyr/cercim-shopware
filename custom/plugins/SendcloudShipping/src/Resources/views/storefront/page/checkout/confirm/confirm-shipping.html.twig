@@ -1,0 +1,23 @@
+{% sw_extends '@Storefront/storefront/page/checkout/confirm/confirm-shipping.html.twig' %}
+
+{% block page_checkout_confirm_shipping_form_control %}
+    {{ parent() }}
+    {% if shipping.extensions.sendcloud.servicePointConfig.isServicePointDelivery %}
+        <input type="hidden" id="servicePointDeliveryId" value="{{ shipping.extensions.sendcloud.servicePointConfig.servicePointDeliveryId }}"/>
+        <input type="hidden" id="servicePointEndpointUrl" value="{{ shipping.extensions.sendcloud.servicePointConfig.servicePointEndpointUrl }}"/>
+        <input type="hidden" id="sendcloudApiKey" value="{{ shipping.extensions.sendcloud.servicePointConfig.apiKey }}"/>
+        <input type="hidden" id="sendcloudCarriers" value="{{ shipping.extensions.sendcloud.servicePointConfig.carriers }}"/>
+        <input type="hidden" id="sendcloudZip" value="{{ context.customer.activeShippingAddress.zipcode }}"/>
+        <input type="hidden" id="sendcloudCountry" value="{{ context.customer.activeShippingAddress.country.iso }}"/>
+        <input type="hidden" id="sendcloudCustomerNumber" value="{{ context.customer.customerNumber }}"/>
+        <div style="display: none" id="servicePointInfo">
+            <div id="servicePointName"></div>
+            <div id="servicePointStreet"></div>
+            <div id="servicePointZipAndCity"></div>
+            <div id="servicePointCountry"></div>
+        </div>
+        <button type="button" class="btn btn-primary" style="display: none" id="selectServicePointButton">
+            {{ "sendcloud.selectServicePoint"|trans() }}
+        </button>
+    {% endif %}
+{% endblock %}

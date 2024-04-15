@@ -1,0 +1,61 @@
+{
+  "send-cloud": {
+    "basic": {
+      "label": "Sendcloud",
+      "description": ""
+    },
+    "welcome": {
+      "title": "Die Versandsoftware für den E-Commerce",
+      "mainText": "Bereits mehr als 10.000 Onlinehändler vertrauen auf Sendcloud. Join the revolution!",
+      "buttonLabel": "Einloggen oder kostenlosen Sendcloud Account erstellen"
+    },
+    "dashboard": {
+      "tabName": "Dashboard",
+      "mainText": "Alles bereit! Jetzt kann's losgehen!",
+      "buttonLabel": "Gehe zu Sendcloud",
+      "notification": {
+        "title": "Die Service Point Zustellung ist deaktiviert!",
+        "message": "Bitte aktivieren Sie die Service Points in Sendcloud unter \"Einstellungen\" > \"Integrationen\" > {channel}, um die Versandmethode verwenden zu können."
+      }
+    },
+    "shipment": {
+      "trackingNumber": "Tracking number",
+      "servicePointDelivery": "Service Point Zustellung",
+      "changeServicePoint": "Service Point ändern",
+      "selectServicePoint": "Service Point auswählen",
+      "emptyStatusMessage": "-",
+      "emptyTrackingNumberMessage": "-",
+      "emptyServicePointMessage": "-"
+    },
+    "customsInfo": {
+      "tabName": "Customs information",
+      "defaultValues": {
+        "title": "Default values",
+        "paragraph": "To send international shipment data to Sendcloud, please select a default value that will be used. If you have mapped value for HS code and origin country in the next section, and the value is not found on the product, the defined value below will be used."
+      },
+      "dataMapping": {
+        "title": "Data mapping",
+        "paragraph": "Please map product HS-code and origin country to Shopware custom product attributes. Mapped attribute values will be used when plugin sends order data to Sendcloud."
+      },
+      "shipmentType": "Shipment type",
+      "shipmentTypeHelpText": "Type of shipment.",
+      "hsCode": "HS Code",
+      "hsCodeHelpText": "The HS code is the harmonized system code. If you want to ship",
+      "originCountry": "Origin country",
+      "originCountryHelpText": "In most cases, the country where the product is manufactured.",
+      "hsCodePlaceholderText": "Enter default value for HS code field",
+      "originCountrySelectMessage": "Please select country of origin",
+      "hsCodeMappingSelectMessage": "Please select attribute for mapping",
+      "originCountryMappingSelectMessage": "Please select attribute for mapping",
+      "none": "None",
+      "shipmentTypes": {
+        "gift": "Geschenk",
+        "documents": "Dokumente",
+        "commercialGoods": "Kommerzielle Güter",
+        "commercialSample": "Handelsmuster",
+        "returnedGoods": "Rücksendung"
+      },
+      "successfulSaveMessage": "Customs information has been saved."
+    }
+  }
+}
